@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <title>Messages App</title>
+</head>
+
+<body>
+  <main role="main" class="container py-3 px-0 float-right">
+    <div class="px-3 h-100">
+
+      <!-- Todo add filter by subject -->
+      
+      <!-- <div class="filters-container">
+        <h3 class="d-inline">Filters: </h3>
+        <span class="icon-button"">
+          <img src="images/icons/nav-heart.svg" class="icon" />
+        </span>
+        <span class="icon-button">
+          <img src="images/icons/nav-brain.svg" class="icon" />
+        </span>
+        <span class="icon-button">
+          <img src="images/icons/nav-bobo.svg" class="icon" />
+        </span>
+        <span class="icon-button">
+          <img src="images/icons/nav-pencil.svg" class="icon" />
+        </span>
+        <span class="icon-button">
+          <img src="images/icons/nav-book.svg" class="icon" />
+        </span>
+      </div> -->
+      <div class="row">
+        <div class="col-9 p-4">
+          <img src="images/logo.svg" class="logo" />
+        </div>
+        <div class="col">
+          <!-- Names Injection Root -->
+          <div id="names-root"></div>
+        </div>
+      </div>
+
+
+      <!-- Messages Injection Root -->
+      <div id="messages-root"></div>
+
+      <div class="message-form-container mt-4">
+        <form id="message-form">
+          <div class="form-group">
+            <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="username">
+          </div>
+          <select id="subject" class="form-control">
+            <option>general</option>
+            <option>research</option>
+            <option>baby talk</option>
+            <option>reviews</option>
+            <option>resources</option>
+          </select>
+          <div class="form-group">
+            <textarea class="form-control" id="message" rows="2" placeholder="message"></textarea>
+          </div>
+        </form>
+        <button onclick="submitForm()" class="button">Send</button>
+      </div>
+    </div>
+  </main>
+  </div>
+
+  <script id="messages-template" type="text/x-handlebars-template">
+    <div class="my-3 p-3 message-container">
+      {{log formattedMessages}}
+      {{#each formattedMessages}}
+      <div class="media rounded message-body" style="background-color: #fefbef;">
+        <div class="media-body mb-0">
+          <strong class="d-inline bold" style="color: #4edbc9;" >{{ name }}:</strong>
+            {{#each message}}   
+              <p class="ml-4">
+                {{this.message}}
+              <span class="badge badge-pill badge-{{#get_color this.subject}}{{/get_color}} float-right">{{this.subject}}</span>
+              </p>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+      <div>
+        <img src="images/Watercolors_Starburst_iPad@2x.png" class="banner-img" />
+      </div>
+    </div>  
+  </script>
+
+  <script id="name-filtered-messages-template" type="text/x-handlebars-template">
+    <div class="my-3 p-3 bg-white message-container">
+      {{log formattedMessages}}
+      {{#with formattedMessages}}
+      <div class="media pt-3">
+        <div class="media-body pb-3 mb-0 border-bottom border-gray">
+          <strong class="d-inline bold">{{ name }}:</strong>
+            {{#each message}}   
+              <p class="">
+                {{this.message}}
+              <span class="badge badge-pill badge-{{#get_color this.subject}}{{/get_color}} float-right">{{this.subject}}</span>
+              </p>
+            {{/each}}
+          </div>
+        </div>
+      {{/with}}
+    </div>  
+  </script>
+
+  <script id="names-template" type="text/x-handlebars-template">
+    <div class="filters-container">
+      <h5 class="">friends online: </h5>
+      <select id="name-select" class="form-control filter d-inline m-0" onchange="filterByName()">
+        <option></option>
+        {{#each names}}
+          <option>{{this}}</option>
+        {{/each}}
+      </select>
+    </div>   
+  </script>
+
+
+
+  <!-- JS Library Dependencies -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
